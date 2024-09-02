@@ -7,7 +7,8 @@
   packages = [ pkgs.python3 ];
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
-    extensions = [ "ms-python.python" ];
+    # extensions = [ "ms-python.python" ];
+    extensions = [  ];
     workspace = {
       # Runs when a workspace is first created with this `dev.nix` file
       onCreate = {
@@ -18,15 +19,15 @@
       }; # To run something each time the workspace is (re)started, use the `onStart` hook
     };
     # Enable previews and customize configuration
-    previews = {
-      enable = true;
-      previews = {
-        web = {
-          command = [ "./devserver.sh" ];
-          env = { PORT = "$PORT"; };
-          manager = "web";
-        };
-      };
-    };
+    # previews = {
+    #   enable = true;
+    #   previews = {
+    #     web = {
+    #       command = [ "python app/main.py" ];
+    #       env = { PORT = "$PORT"; };
+    #       manager = "web";
+    #     };
+    #   };
+    # };
   };
 }
