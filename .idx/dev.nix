@@ -14,7 +14,7 @@
     # extensions = [ "ms-python.python" ];
     extensions = [  ]; 
     workspace = {
-      # Runs when a workspace is first created with this `dev.nix` file
+      # Runs when a workspace is first created with this `de v.nix` file
       onCreate = {
         install =
           "python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt";
