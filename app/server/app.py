@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from .routes.board import router as BoardRouter
 
 app = FastAPI()
 
-# app.include_router(BoardRouter, tags=["Board"], prefix="/board")
+app.include_router(BoardRouter, tags=["Board"], prefix="/board")
 # app.include_router(TaskRouter, tags=["Task"], prefix="/task")
 
 origins = [
