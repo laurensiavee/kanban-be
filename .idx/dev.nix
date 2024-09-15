@@ -7,36 +7,26 @@
   packages = [ 
     pkgs.python3
     pkgs.mongodb
-    pkgs.mongosh
-   ];
+    pkgs.mongosh 
+  ];
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
-    # extensions = [ "ms-python.python" ];
-    extensions = [  ]; 
+    extensions = [ "ms-python.python" "rangav.vscode-thunder-client" ];
     workspace = {
-      # Runs when a workspace is first created with this `de v.nix` file
+      # Runs when a workspace is first created with this `dev.nix` file
       onCreate = {
         install =
           "python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt";
         # Open editors for the following files by default, if they exist:
-        default.openFiles = [ "README.md" "app/main.py" ];
-      }; # To run something each time the workspace is (re)started, use the `onStart` hook
-      onStart = {
-        install =
-          "python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt";
+        default.openFiles = [ "README.md" ];
+      };
+      # Runs when a workspace is (re)started
+      onStart = { 
+        # run-server = "./app/main.py"; 
+        install = 
+          "";
           mongo-db = "chmod +x ./mongodb/start.sh && ./mongodb/start.sh"; 
       };
-    }; 
-    # Enable previews and customize configuration
-    # previews = {
-    #   enable = true;
-    #   previews = {
-    #     web = {
-    #       command = [ "python app/main.py" ];
-    #       env = { PORT = "$PORT"; };
-    #       manager = "web";
-    #     };
-    #   };
-    # };
+    };
   };
 }
