@@ -2,7 +2,6 @@ from typing import Optional
 
 from pydantic import BaseModel, EmailStr, Field
 
-
 class TaskSchema(BaseModel):
     task_no: str = Field(...)
     task_state: str = Field(...)
