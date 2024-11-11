@@ -102,3 +102,17 @@ async def delete_task(board_no: str, task_no: str):
             {"$pull": {'task_list': {"task_no": task_no}}}
         )
         return True
+
+# latest no
+async def get_latest_board_no() -> str:
+    last_board = await board_collection.find_one(sort=[("_id", -1)])
+    if last_board:
+        return last_board["board_no"]
+    return "BOARD000"
+
+async def get_latest_task_no(board_no: str) -> str:
+    board = await board_collection.find_one({"board_no": board_no})
+    if board:
+        if board["task_list"][-1]["task_no"]:
+            return board["task_list"][-1]["task_no"]
+    return "TASK000"

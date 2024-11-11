@@ -11,6 +11,8 @@ from ..database import (
     update_task,
     update_task_state,
     delete_task,
+    get_latest_board_no,
+    get_latest_task_no,
 )
 
 from ..models.board import (
