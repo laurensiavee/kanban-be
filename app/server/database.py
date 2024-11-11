@@ -5,9 +5,9 @@ MONGO_DETAILS = "mongodb://localhost:27017"
 
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
 
-tasks_database = client.tasks
+kanban_database = client.kanban
 
-board_collection = tasks_database.get_collection("board_collection")
+board_collection = kanban_database.get_collection("board_collection")
 
 # helpers
 def board_helper(board) -> dict:
