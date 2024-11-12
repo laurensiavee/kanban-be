@@ -11,8 +11,8 @@ from ..database import (
     update_task,
     update_task_state,
     delete_task,
-    get_latest_board_no,
-    get_latest_task_no,
+    get_new_board_no,
+    get_new_task_no,
 )
 
 from ..models.board import (
@@ -123,3 +123,19 @@ async def delete_task_data(board_no: str, task_no: str):
         404,
         "There was an error updating the task data.",
     )
+
+# generate no
+@router.get("/generate/new_board_no", response_description="New Board No generated")
+async def get_new_board_no_data():
+    new_board_no = await get_new_board_no()
+    if new_board_no:
+        return ResponseModel(new_board_no, "New Board No generated successfully")
+    return ErrorResponseModel("An error occurred.", 404, "Error on generating task no.")
+
+
+@router.get("/{board_no}/generate/new_task_no", response_description="New Task No generated")
+async def get_new_task_no_data(board_no):
+    new_task_no = await get_new_task_no(board_no)
+    if new_task_no:
+        return ResponseModel(new_task_no, "New Task No generated successfully")
+    return ErrorResponseModel("An error occurred.", 404, "Board doesn't exist.")

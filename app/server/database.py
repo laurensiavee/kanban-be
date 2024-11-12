@@ -103,16 +103,33 @@ async def delete_task(board_no: str, task_no: str):
         )
         return True
 
-# latest no
-async def get_latest_board_no() -> str:
-    last_board = await board_collection.find_one(sort=[("_id", -1)])
-    if last_board:
-        return last_board["board_no"]
-    return "BOARD000"
+# generate no
 
-async def get_latest_task_no(board_no: str) -> str:
+async def get_new_board_no() -> str:
+    last_board = await board_collection.find_one()
+    if last_board:
+        return(generate_new_board_no(last_board["board_no"]))
+    return "BOARD001"
+
+async def get_new_task_no(board_no: str) -> str:
     board = await board_collection.find_one({"board_no": board_no})
-    if board:
-        if board["task_list"][-1]["task_no"]:
-            return board["task_list"][-1]["task_no"]
-    return "TASK000"
+    if board and board.get("task_list") and board["task_list"]:
+        if board["task_list"][-1].get("task_no"):
+            return generate_new_task_no(board["task_list"][-1]["task_no"])
+    return "TASK001"
+
+def generate_new_board_no(latest_board_no):
+    num = latest_board_no[5:8]
+    num = int(num) + 1
+    str_num = str(num)
+    pad = "000"
+    new_task_no = "BOARD" + pad[:-len(str_num)] + str_num
+    return new_task_no
+
+def generate_new_task_no(latest_task_no):
+    num = latest_task_no[4:7]
+    num = int(num) + 1
+    str_num = str(num)
+    pad = "000"
+    new_task_no = "TASK" + pad[:-len(str_num)] + str_num
+    return new_task_no
